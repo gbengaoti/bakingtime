@@ -29,30 +29,31 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-//        mIngredientRecyclerView = findViewById(R.id.ingredients_recyler_view);
-//        mIngredientRecyclerView.setHasFixedSize(true);
-//
-//        RecyclerView.LayoutManager layoutManager =
-//                (new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-//
-//        mIngredientRecyclerView.setLayoutManager(layoutManager);
-//        // adapter initialized here
-//        mIngredientAdapter = new IngredientAdapter();
-//
-//        DividerItemDecoration trailerDecoration =
-//                new DividerItemDecoration(getApplicationContext(), VERTICAL);
-//        mIngredientRecyclerView.addItemDecoration(trailerDecoration);
-//
-//        //set adapter
-//        mIngredientRecyclerView.setAdapter(mIngredientAdapter);
+        mIngredientRecyclerView = findViewById(R.id.ingredients_recyler_view);
+        mIngredientRecyclerView.setHasFixedSize(true);
+
+        RecyclerView.LayoutManager layoutManager =
+                (new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+
+        mIngredientRecyclerView.setLayoutManager(layoutManager);
+        // adapter initialized here
+        mIngredientAdapter = new IngredientAdapter();
+
+        DividerItemDecoration trailerDecoration =
+                new DividerItemDecoration(getApplicationContext(), VERTICAL);
+        mIngredientRecyclerView.addItemDecoration(trailerDecoration);
+
+        //set adapter
+        mIngredientRecyclerView.setAdapter(mIngredientAdapter);
 
         Intent intent = getIntent();
         if (intent == null){
             closeOnError();
         }else{
             Log.v(TAG, "Intent not null");
-            intent.setExtrasClassLoader(Ingredient.class.getClassLoader());
-            ArrayList<Ingredient> ingredients =  intent.getParcelableArrayListExtra(Intent.EXTRA_TEXT);
+            //intent.setExtrasClassLoader(Ingredient.class.getClassLoader());
+            String intentKey = "ingredientArrayList";
+            ArrayList<Ingredient> ingredients =  intent.getParcelableArrayListExtra(intentKey);
             assert ingredients != null;
             for (Ingredient i : ingredients){
                 System.out.println("Quantity "+ i.getQuantity());

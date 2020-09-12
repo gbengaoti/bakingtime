@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.example.bakingtime.model.Ingredient;
@@ -87,10 +88,10 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Rec
         Log.v(TAG, "Ingredient "+ myCurrentRecipe.getIngredientList().get(0).getIngredient());
         // passing object is not working - how did you pass movie details
         // start activity with recipe details
-        Intent intentToStartDetailActivty = new Intent(this, DetailActivity.class);
-        ArrayList<Ingredient> ingredientArrayList = myCurrentRecipe.getIngredientList();
-        intentToStartDetailActivty.setExtrasClassLoader(Ingredient.class.getClassLoader());
-        intentToStartDetailActivty.putExtra(Intent.EXTRA_TEXT, ingredientArrayList);
-        startActivity(intentToStartDetailActivty);
+        Intent intentToStartDetailActivity = new Intent(this, DetailActivity.class);
+        List<Ingredient> ingredientArrayList = myCurrentRecipe.getIngredientList();
+        String intentKey = "ingredientArrayList";
+        intentToStartDetailActivity.putParcelableArrayListExtra(intentKey, (ArrayList<? extends Parcelable>) ingredientArrayList);
+        startActivity(intentToStartDetailActivity);
     }
 }

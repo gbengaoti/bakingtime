@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Recipe implements Parcelable {
     @SerializedName("id")
@@ -13,9 +13,9 @@ public class Recipe implements Parcelable {
     @SerializedName("name")
     private String name;
     @SerializedName("ingredients")
-    private ArrayList<Ingredient> ingredientList = null;
+    private List<Ingredient> ingredientList;
     @SerializedName("steps")
-    private ArrayList<Step> bakingSteps = null;
+    private List<Step> bakingSteps;
     @SerializedName("servings")
     private Integer noOfServings;
     @SerializedName("image")
@@ -29,11 +29,7 @@ public class Recipe implements Parcelable {
             id = in.readInt();
         }
         name = in.readString();
-//        this.ingredientList = new ArrayList<>();
-//        in.readList(this.ingredientList, Ingredient.class.getClassLoader());
         ingredientList = in.createTypedArrayList(Ingredient.CREATOR);
-//        this.bakingSteps = new ArrayList<>();
-//        in.readList(this.bakingSteps, Step.class.getClassLoader());
         bakingSteps = in.createTypedArrayList(Step.CREATOR);
         if (in.readByte() == 0) {
             noOfServings = null;
@@ -71,19 +67,19 @@ public class Recipe implements Parcelable {
         this.name = name;
     }
 
-    public ArrayList<Ingredient> getIngredientList() {
+    public List<Ingredient> getIngredientList() {
         return ingredientList;
     }
 
-    public void setIngredientList(ArrayList<Ingredient> ingredientList) {
+    public void setIngredientList(List<Ingredient> ingredientList) {
         this.ingredientList = ingredientList;
     }
 
-    public ArrayList<Step> getBakingSteps() {
+    public List<Step> getBakingSteps() {
         return bakingSteps;
     }
 
-    public void setBakingSteps(ArrayList<Step> bakingSteps) {
+    public void setBakingSteps(List<Step> bakingSteps) {
         this.bakingSteps = bakingSteps;
     }
 
@@ -117,8 +113,8 @@ public class Recipe implements Parcelable {
             parcel.writeInt(id);
         }
         parcel.writeString(name);
-        parcel.writeList(ingredientList);
-        parcel.writeList(bakingSteps);
+        parcel.writeTypedList(ingredientList);
+        parcel.writeTypedList(bakingSteps);
         if (noOfServings == null) {
             parcel.writeByte((byte) 0);
         } else {
