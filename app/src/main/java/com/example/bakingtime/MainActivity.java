@@ -1,5 +1,6 @@
 package com.example.bakingtime;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,8 +11,10 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 
+import com.example.bakingtime.Utils.ProjectConstants;
 import com.example.bakingtime.model.Ingredient;
 import com.example.bakingtime.model.Recipe;
+import com.example.bakingtime.model.Step;
 import com.example.bakingtime.network.APIBakingClient;
 import com.example.bakingtime.network.BakingAPIInterface;
 
@@ -26,14 +29,13 @@ import retrofit2.Retrofit;
 public class MainActivity extends AppCompatActivity implements RecipeAdapter.RecipeAdapterOnClickHandler{
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    private RecyclerView mRecipeRecyclerView;
     private RecipeAdapter mRecipeAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mRecipeRecyclerView = findViewById(R.id.recipe_recyler_view);
+        RecyclerView mRecipeRecyclerView = findViewById(R.id.recipe_recyler_view);
         mRecipeRecyclerView.setHasFixedSize(true);
 
         int NUMBER_OF_COLUMNS = 1;
@@ -58,15 +60,17 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Rec
         Call<ArrayList<Recipe>> call = apiService.getBakingRecipes();
         call.enqueue(new Callback<ArrayList<Recipe>>() {
             @Override
-            public void onResponse(Call<ArrayList<Recipe>> call, Response<ArrayList<Recipe>> response) {
+            public void onResponse(@NonNull Call<ArrayList<Recipe>> call, @NonNull Response<ArrayList<Recipe>> response) {
                 Log.v(TAG, String.valueOf(response.code()));
                 if (response.isSuccessful()){
-                    assert response.body() != null;
-                    List<Recipe> recipes = response.body();
-                    // check if list is empty
-                    if (!(recipes.isEmpty())){
-                        mRecipeAdapter.setRecipeData(recipes.toArray(new Recipe[0]));
+                    if (response.body() != null){
+                        List<Recipe> recipes = response.body();
+                        // check if list is empty
+                        if (!(recipes.isEmpty())){
+                            mRecipeAdapter.setRecipeData(recipes.toArray(new Recipe[0]));
+                        }
                     }
+
 
                 }
             }
@@ -82,16 +86,20 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Rec
     @Override
     public void onClick(Recipe myCurrentRecipe) {
         // start new intent with recipe
-        Log.v(TAG, myCurrentRecipe.getName());
-        Log.v(TAG, "Quantity "+ myCurrentRecipe.getIngredientList().get(0).getQuantity());
-        Log.v(TAG, "Measure "+ myCurrentRecipe.getIngredientList().get(0).getMeasure());
-        Log.v(TAG, "Ingredient "+ myCurrentRecipe.getIngredientList().get(0).getIngredient());
-        // passing object is not working - how did you pass movie details
         // start activity with recipe details
         Intent intentToStartDetailActivity = new Intent(this, DetailActivity.class);
-        List<Ingredient> ingredientArrayList = myCurrentRecipe.getIngredientList();
-        String intentKey = "ingredientArrayList";
-        intentToStartDetailActivity.putParcelableArrayListExtra(intentKey, (ArrayList<? extends Parcelable>) ingredientArrayList);
-        startActivity(intentToStartDetailActivity);
+        if (myCurrentRecipe != null){
+            List<Ingredient> ingredientArrayList = myCurrentRecipe.getIngredientList();
+            List<Step> bakingStepsArrayList = myCurrentRecipe.getBakingSteps();
+            Bundle recipeDetails = new Bundle();
+            recipeDetails.putParcelableArrayList(ProjectConstants.ingredientKey, (ArrayList<? extends Parcelable>) ingredientArrayList);
+            recipeDetails.putParcelableArrayList(ProjectConstants.stepsKey, (ArrayList<? extends Parcelable>) bakingStepsArrayList);
+
+            intentToStartDetailActivity.putExtras(recipeDetails);
+            startActivity(intentToStartDetailActivity);
+        }
+
+
+
     }
 }

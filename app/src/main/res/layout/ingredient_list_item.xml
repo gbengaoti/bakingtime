@@ -17,26 +17,34 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/ingredient_quantity"
+            android:textSize="16sp"
+            android:padding="@dimen/padding_size"
+            android:layout_marginRight="@dimen/card_margin"
+            cardview:layout_constraintTop_toTopOf="parent"
+            cardview:layout_constraintLeft_toLeftOf="parent"
+            cardview:layout_constraintBottom_toTopOf="@+id/ingredient_measure"
+            tools:text="5"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:id="@+id/ingredient_name"
+            android:textSize="16sp"
+            android:padding="@dimen/padding_size"
+            android:layout_marginRight="@dimen/card_margin"
+            cardview:layout_constraintLeft_toRightOf="@+id/ingredient_quantity"
             cardview:layout_constraintRight_toRightOf="parent"
             cardview:layout_constraintTop_toTopOf="parent"
-            cardview:layout_constraintBottom_toBottomOf="parent"
             tools:text="Ingredient name"
             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/ingredient_quantity"
-            cardview:layout_constraintTop_toTopOf="parent"
-            cardview:layout_constraintLeft_toLeftOf="parent"
-            cardview:layout_constraintBottom_toTopOf="@+id/ingredient_measure"
-            tools:text="5"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/ingredient_measure"
+            android:padding="@dimen/padding_size"
+            android:textSize="16sp"
             cardview:layout_constraintLeft_toLeftOf="parent"
             cardview:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

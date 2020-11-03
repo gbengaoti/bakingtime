@@ -37,7 +37,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<MyIngredientViewHold
     public void onBindViewHolder(@NonNull MyIngredientViewHolder holder, int position) {
         TextView ingredientNameTextView = holder.getmIngredientNameTextView();
         TextView ingredientQuantityTextView = holder.getmIngredientQuantityTextView();
-        ImageView ingredientMeasureImageView = holder.getmIngredientMeasureImageView();
+        TextView ingredientMeasureTextView = holder.getmIngredientMeasureTextView();
         Ingredient ingredient = mIngredientList[position];
         if (ingredient.getIngredient() != null){
             ingredientNameTextView.setText(ingredient.getIngredient());
@@ -46,8 +46,12 @@ public class IngredientAdapter extends RecyclerView.Adapter<MyIngredientViewHold
            ingredientQuantityTextView.setText(String.valueOf(mIngredientList[position].getQuantity()));
        }
 
+       ingredientMeasureTextView.setText(ingredient.getMeasure());
+
 
         // set image with measure
+
+
     }
 
     @Override

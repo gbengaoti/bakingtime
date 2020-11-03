@@ -1,7 +1,6 @@
 package com.example.bakingtime.viewholder;
 
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.bakingtime.R;
 
@@ -12,7 +11,7 @@ public class MyIngredientViewHolder extends RecyclerView.ViewHolder {
 
     private final TextView mIngredientNameTextView;
     private final TextView mIngredientQuantityTextView;
-    private final ImageView mIngredientMeasureImageView;
+    private final TextView mIngredientMeasureTextView;
 
 
 
@@ -20,7 +19,7 @@ public class MyIngredientViewHolder extends RecyclerView.ViewHolder {
         super(view);
         this.mIngredientNameTextView = view.findViewById(R.id.ingredient_name);
         this.mIngredientQuantityTextView = view.findViewById(R.id.ingredient_quantity);
-        this.mIngredientMeasureImageView = view.findViewById(R.id.ingredient_measure);
+        this.mIngredientMeasureTextView = view.findViewById(R.id.ingredient_measure);
 
     }
 
@@ -33,7 +32,7 @@ public class MyIngredientViewHolder extends RecyclerView.ViewHolder {
         return mIngredientQuantityTextView;
     }
 
-    public ImageView getmIngredientMeasureImageView() {
-        return mIngredientMeasureImageView;
+    public TextView getmIngredientMeasureTextView() {
+        return mIngredientMeasureTextView;
     }
 }
