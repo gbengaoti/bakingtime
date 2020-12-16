@@ -19,10 +19,6 @@ import java.util.ArrayList;
 
 public class MyWidgetProvider extends AppWidgetProvider {
 
-    private static final String TAG = MyWidgetProvider.class.getSimpleName();
-
-    private static final String ACTION_CLICK = "ACTION_CLICK";
-
     private static final String NO_RECIPE = "No Recipe Selected";
 
     public static void updateWidgetIngredientList(Context context,
@@ -44,8 +40,10 @@ public class MyWidgetProvider extends AppWidgetProvider {
 
             Intent intent = new Intent(context, DetailActivity.class);
             Bundle recipeDetails = new Bundle();
-            recipeDetails.putParcelableArrayList(ProjectConstants.ingredientKey, (ArrayList<? extends                   Parcelable>) myCurrentRecipe.getIngredientList());
-            recipeDetails.putParcelableArrayList(ProjectConstants.stepsKey, (ArrayList<? extends                        Parcelable>) myCurrentRecipe.getBakingSteps());
+            recipeDetails.putParcelableArrayList(ProjectConstants.ingredientKey, (ArrayList<? extends
+                    Parcelable>) myCurrentRecipe.getIngredientList());
+            recipeDetails.putParcelableArrayList(ProjectConstants.stepsKey, (ArrayList<? extends
+                    Parcelable>) myCurrentRecipe.getBakingSteps());
 
             intent.putExtras(recipeDetails);
 

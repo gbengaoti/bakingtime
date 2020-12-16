@@ -1,16 +1,15 @@
 package com.example.bakingtime;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Parcelable;
+import android.widget.Button;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.bakingtime.Utils.ProjectConstants;
 import com.example.bakingtime.model.Ingredient;
@@ -22,7 +21,7 @@ import java.util.List;
 import static androidx.recyclerview.widget.DividerItemDecoration.VERTICAL;
 
 public class DetailActivity extends AppCompatActivity {
-    private static final String TAG = DetailActivity.class.getSimpleName();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +52,6 @@ public class DetailActivity extends AppCompatActivity {
         if (intent == null){
             closeOnError();
         }else{
-            Log.v(TAG, "Intent not null");
             Bundle recipeDetails =  intent.getExtras();
 
             assert recipeDetails != null;
@@ -73,11 +71,7 @@ public class DetailActivity extends AppCompatActivity {
             intentToStartStepActivity.putExtras(recipeStepDetails);
 
 
-          startCookingButton.setOnClickListener(view -> {
-              // start new activity for description
-              Log.v(TAG, "cooking activity started");
-              startActivity(intentToStartStepActivity);
-          });
+          startCookingButton.setOnClickListener(view -> startActivity(intentToStartStepActivity));
 
         }
     }

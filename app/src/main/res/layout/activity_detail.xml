@@ -10,9 +10,9 @@
         android:id="@+id/start_cooking_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="@dimen/cooking_btn_margin"
         android:background="@color/colorAccent"
-        android:padding="16dp"
+        android:padding="@dimen/cooking_btn_padding"
         android:text="@string/start_cooking"
         android:textColor="#FFF"
         app:layout_constraintHorizontal_bias="0.0"
@@ -28,7 +28,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:clipToPadding="false"
         app:layout_constrainedHeight="true"
-        android:paddingBottom="50dp"
+        android:paddingBottom="@dimen/detail_recy_padding"
         app:layout_constraintTop_toBottomOf="@id/start_cooking_btn"/>
 
 

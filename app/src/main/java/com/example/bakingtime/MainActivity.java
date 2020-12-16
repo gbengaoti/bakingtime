@@ -28,6 +28,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import static com.example.bakingtime.Utils.ProjectConstants.CURRENT_RECIPE;
+import static com.example.bakingtime.Utils.ProjectConstants.MY_PREFERENCES;
+
 public class MainActivity extends AppCompatActivity implements RecipeAdapter.RecipeAdapterOnClickHandler{
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -79,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Rec
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Recipe>> call, Throwable t) {
+            public void onFailure(@NonNull Call<ArrayList<Recipe>> call, @NonNull Throwable t) {
                 String ERROR_MESSAGE = "failure to get baking recipes";
                 Log.v(TAG, ERROR_MESSAGE);
             }
@@ -94,14 +97,14 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Rec
         if (myCurrentRecipe != null){
             List<Ingredient> ingredientArrayList = myCurrentRecipe.getIngredientList();
             // save recipe to device
-            SharedPreferences sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
-            String CURRENT_RECIPE = "current recipe";
+            SharedPreferences sharedPreferences = getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
+
             SharedPreferences.Editor editor = sharedPreferences.edit();
             Gson gson = new Gson();
             String json = gson.toJson(myCurrentRecipe);
             editor.putString(CURRENT_RECIPE, json);
             editor.apply();
-
+            //start service for updating widget
             WidgetService.startActionUpdateRecipe(this);
 
             List<Step> bakingStepsArrayList = myCurrentRecipe.getBakingSteps();

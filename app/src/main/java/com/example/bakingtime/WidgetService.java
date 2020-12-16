@@ -16,6 +16,9 @@ import com.google.gson.Gson;
 
 import java.util.List;
 
+import static com.example.bakingtime.Utils.ProjectConstants.CURRENT_RECIPE;
+import static com.example.bakingtime.Utils.ProjectConstants.MY_PREFERENCES;
+
 
 public class WidgetService extends JobIntentService {
     private static final int UPDATE_RECIPE_ID = 1029;
@@ -35,8 +38,8 @@ public class WidgetService extends JobIntentService {
         // Get data from shared preferences file
         // retrieve recipe from shared preferences
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences
-                ("MyPreferences", Context.MODE_PRIVATE);
-        String CURRENT_RECIPE = "current recipe";
+                (MY_PREFERENCES, Context.MODE_PRIVATE);
+
         Gson gson = new Gson();
         String json = sharedPreferences.getString(CURRENT_RECIPE, "");
         Recipe myCurrentRecipe = gson.fromJson(json, Recipe.class);
@@ -55,15 +58,10 @@ public class WidgetService extends JobIntentService {
             ingredientListString = "No Ingredient Found";
         }
 
-
-
-
         ingredientListString = ingredientListBuilder.toString();
-        Log.v(TAG, ingredientListString);
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
 
-        //??
         int[] allWidgetIds = appWidgetManager.getAppWidgetIds
                 (new ComponentName(this, MyWidgetProvider.class));
 
@@ -76,7 +74,6 @@ public class WidgetService extends JobIntentService {
         Intent intent = new Intent(context, WidgetService.class);
         intent.setAction(ACTION_UPDATE);
         enqueueWork(context, WidgetService.class, UPDATE_RECIPE_ID, intent);
-        Log.v(TAG, "starting service");
     }
 
 }

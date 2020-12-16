@@ -3,8 +3,6 @@ package com.example.bakingtime.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import androidx.annotation.NonNull;
-
 import com.google.gson.annotations.SerializedName;
 
 public class Ingredient implements Parcelable{
@@ -19,12 +17,6 @@ public class Ingredient implements Parcelable{
         this.quantity = quantity;
         this.measure = measure;
         this.ingredient = ingredient;
-    }
-
-    @NonNull
-    @Override
-    public String toString() {
-        return ingredient;
     }
 
     protected Ingredient(Parcel in) {

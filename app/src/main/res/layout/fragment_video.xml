@@ -9,7 +9,7 @@
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/video_fragment_margin"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -20,18 +20,18 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/video_fragment_margin"
         android:id="@+id/no_video_placeholder"
         android:src="@mipmap/vide_not_found"
         android:visibility="gone"
         app:layout_constraintRight_toRightOf="parent"
-        />
+        android:contentDescription="@string/placeholder_for_video_not_found" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:padding="8dp"
+        android:layout_margin="@dimen/video_fragment_margin"
+        android:padding="@dimen/text_view_fragment_padding"
         app:layout_constraintTop_toBottomOf="@id/no_video_placeholder"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
