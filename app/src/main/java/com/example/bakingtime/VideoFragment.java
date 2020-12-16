@@ -6,17 +6,16 @@ package com.example.bakingtime;
 
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.example.bakingtime.model.Step;
 import com.google.android.exoplayer2.C;
@@ -33,7 +32,6 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
-import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
@@ -58,7 +56,7 @@ public class VideoFragment extends Fragment {
     int mCurrentWindowIndex;
 
 
-    // TODO: Rename and change types of parameters
+    // C: Rename and change types of parameters
     private String mVideoURLLink;
     private String mVideoDescription;
     private Step mCurrentStep;
@@ -169,7 +167,6 @@ public class VideoFragment extends Fragment {
         if (!(videoURL.equals(""))) {
             videoUri = Uri.parse(videoURL);
 
-            // Create a default TrackSelector
             mBandwidthMeter = new DefaultBandwidthMeter();
             mVideoTrackSelectionFactory = new AdaptiveVideoTrackSelection.Factory(mBandwidthMeter);
             mTrackSelector = new DefaultTrackSelector(mVideoTrackSelectionFactory);
@@ -178,21 +175,19 @@ public class VideoFragment extends Fragment {
 
             if (mExoPlayer == null) {
 
-                //Initialize the player
+
                 mExoPlayer = ExoPlayerFactory.newSimpleInstance(getContext(), mTrackSelector, loadControl);
 
                 mPlayerView.setPlayer(mExoPlayer);
 
-                // Produces DataSource instances through which media data is loaded.
+
                 mDataSourceFactory =
                         new DefaultDataSourceFactory
                                 (Objects.requireNonNull(getContext()), Util.getUserAgent(getContext(),
                                         "BakingApp"));
 
-                // Produces Extractor instances for parsing the media data.
                 ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
 
-                // This is the MediaSource representing the media to be played.
                 mVideoSource = new ExtractorMediaSource(videoUri,
                         mDataSourceFactory, extractorsFactory, null, null);
 
@@ -200,7 +195,6 @@ public class VideoFragment extends Fragment {
                     mExoPlayer.seekTo(mPlaybackPosition);
                 }
 
-                // Prepare the player with the source.
                 mExoPlayer.prepare(mVideoSource);
                 mExoPlayer.setPlayWhenReady(mPlayWhenReady);
             }

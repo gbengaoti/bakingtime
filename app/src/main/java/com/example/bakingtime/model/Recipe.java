@@ -21,7 +21,6 @@ public class Recipe implements Parcelable {
     @SerializedName("image")
     private String imageUrl;
 
-
     protected Recipe(Parcel in) {
         if (in.readByte() == 0) {
             id = null;
